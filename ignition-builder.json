@@ -5,18 +5,18 @@
       "tls": {}
     },
     "timeouts": {},
-    "version": "2.2.0"
+    "version": "2.3.0"
   },
   "networkd": {
     "units": [
       {
-        "name": "yy-vmware.network",
         "dropins": [
           {
-            "name": "persistent-dhcp.conf",
-            "contents": "[DHCP]\nClientIdentifier=mac"
+            "contents": "[DHCP]\nClientIdentifier=mac",
+            "name": "persistent-dhcp.conf"
           }
-        ]
+        ],
+        "name": "yy-vmware.network"
       }
     ]
   },
@@ -30,7 +30,9 @@
         ],
         "name": "builder",
         "passwordHash": "$1$iy0TfVpV$YkL12Rk42daUGy40rvREt1",
-        "sshAuthorizedKeys": ["BUILDERSSHAUTHKEY"]
+        "sshAuthorizedKeys": [
+          "BUILDERSSHAUTHKEY"
+        ]
       }
     ]
   },
@@ -41,6 +43,15 @@
         "path": "/etc/coreos/update.conf",
         "contents": {
           "source": "data:,%0AREBOOT_STRATEGY%3D%22reboot%22",
+          "verification": {}
+        },
+        "mode": 420
+      },
+      {
+        "filesystem": "root",
+        "path": "/etc/ssh/sshd_config",
+        "contents": {
+          "source": "data:,%23%20Use%20most%20defaults%20for%20sshd%20configuration.%0ASubsystem%20sftp%20internal-sftp%0AClientAliveInterval%200%20%23%20Don't%20disconnect%20clients%0AUseDNS%20no%0AUsePAM%20yes%0APrintLastLog%20no%20%23%20handled%20by%20PAM%0APrintMotd%20no%20%23%20handled%20by%20PAM%0ACiphers%20chacha20-poly1305%40openssh.com%2Caes128-ctr%2Caes192-ctr%2Caes256-ctr%2Caes128-gcm%40openssh.com%2Caes256-gcm%40openssh.com%0AMACs%20hmac-sha2-256-etm%40openssh.com%2Chmac-sha2-512-etm%40openssh.com%2Chmac-sha2-256%2Chmac-sha2-512%2Cumac-128-etm%40openssh.com%2Cumac-128%40openssh.com%0AKexAlgorithms%20curve25519-sha256%2Ccurve25519-sha256%40libssh.org%2Cecdh-sha2-nistp256%2Cecdh-sha2-nistp384%2Cecdh-sha2-nistp521%2Cdiffie-hellman-group-exchange-sha256%2Cdiffie-hellman-group16-sha512%2Cdiffie-hellman-group18-sha512%2Cdiffie-hellman-group14-sha256%0A",
           "verification": {}
         },
         "mode": 420
